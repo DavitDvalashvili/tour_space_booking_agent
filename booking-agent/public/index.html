@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="ka">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ტური ბუქინგი</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@300;400;500;600&display=swap");
+      :root {
+        --bg: #0a0f0d;
+        --surface: #111812;
+        --surface2: #162019;
+        --border: #1e2e22;
+        --accent: #3dba6e;
+        --accent2: #2a9354;
+        --text: #e8f0ea;
+        --text-muted: #6b8c72;
+        --text-dim: #3d5441;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Noto Sans Georgian", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      header {
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .logo {
+        width: 36px;
+        height: 36px;
+        background: linear-gradient(135deg, var(--accent2), var(--accent));
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+      }
+      .hi h1 {
+        font-size: 15px;
+        font-weight: 600;
+      }
+      .hi p {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-top: 1px;
+      }
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 8px var(--accent);
+        margin-left: auto;
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+      .messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .messages::-webkit-scrollbar {
+        width: 4px;
+      }
+      .messages::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 2px;
+      }
+      .msg {
+        display: flex;
+        flex-direction: column;
+        max-width: 78%;
+        animation: fi 0.3s ease;
+      }
+      @keyframes fi {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .msg.user {
+        align-self: flex-end;
+        align-items: flex-end;
+      }
+      .msg.assistant {
+        align-self: flex-start;
+        align-items: flex-start;
+      }
+      .bubble {
+        padding: 12px 16px;
+        border-radius: 16px;
+        font-size: 14px;
+        line-height: 1.6;
+        white-space: pre-wrap;
+      }
+      .msg.user .bubble {
+        background: var(--surface2);
+        border: 1px solid #2a4a32;
+        border-bottom-right-radius: 4px;
+      }
+      .msg.assistant .bubble {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-bottom-left-radius: 4px;
+      }
+      .msg-meta {
+        font-size: 11px;
+        color: var(--text-dim);
+        margin-top: 4px;
+        padding: 0 4px;
+      }
+      .booking-card {
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 14px;
+        margin-top: 10px;
+        font-size: 13px;
+      }
+      .booking-card h3 {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--accent);
+        margin-bottom: 10px;
+      }
+      .bf {
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .bf:last-child {
+        border-bottom: none;
+      }
+      .bf .l {
+        color: var(--text-muted);
+      }
+      .bf .v {
+        font-weight: 500;
+      }
+      .input-area {
+        padding: 16px 20px;
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+        flex-shrink: 0;
+      }
+      .qr {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+      }
+      .qb {
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        color: var(--text-muted);
+        font-size: 12px;
+        padding: 6px 12px;
+        cursor: pointer;
+        font-family: "Noto Sans Georgian", sans-serif;
+        transition: all 0.2s;
+      }
+      .qb:hover {
+        border-color: var(--accent2);
+        color: var(--accent);
+      }
+      .ir {
+        display: flex;
+        gap: 10px;
+        align-items: flex-end;
+      }
+      textarea {
+        flex: 1;
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        color: var(--text);
+        font-family: "Noto Sans Georgian", sans-serif;
+        font-size: 14px;
+        padding: 12px 16px;
+        resize: none;
+        height: 48px;
+        max-height: 120px;
+        overflow-y: auto;
+        outline: none;
+        transition: border-color 0.2s;
+        line-height: 1.5;
+      }
+      textarea:focus {
+        border-color: var(--accent2);
+      }
+      textarea::placeholder {
+        color: var(--text-dim);
+      }
+      .sb {
+        width: 48px;
+        height: 48px;
+        background: var(--accent);
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: all 0.2s;
+        font-size: 18px;
+        color: white;
+      }
+      .sb:hover {
+        background: var(--accent2);
+        transform: scale(1.05);
+      }
+      .sb:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        transform: none;
+      }
+      .typing {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 12px 16px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        border-bottom-left-radius: 4px;
+        width: fit-content;
+      }
+      .typing span {
+        width: 6px;
+        height: 6px;
+        background: var(--text-muted);
+        border-radius: 50%;
+        animation: b 1.2s infinite;
+      }
+      .typing span:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .typing span:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+      @keyframes b {
+        0%,
+        60%,
+        100% {
+          transform: translateY(0);
+        }
+        30% {
+          transform: translateY(-6px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo">🏔️</div>
+      <div class="hi">
+        <h1>ტური ბუქინგ აგენტი</h1>
+        <p>AI-powered • ქართული ტურები</p>
+      </div>
+      <div class="dot"></div>
+    </header>
+    <div class="messages" id="msgs"></div>
+    <div class="input-area">
+      <div class="qr" id="qr">
+        <button class="qb" onclick="qs('გამარჯობა, ტური მინდა დავჯავშნო')">
+          👋 ჯავშნი დაწყება
+        </button>
+        <button class="qb" onclick="qs('რა ტურები გაქვთ?')">
+          🗺️ ტურების სია
+        </button>
+        <button class="qb" onclick="qs('ფასები?')">💰 ფასები</button>
+      </div>
+      <div class="ir">
+        <textarea
+          id="inp"
+          placeholder="შეტყობინება..."
+          onkeydown="hk(event)"
+          oninput="ar(this)"
+        ></textarea>
+        <button class="sb" id="sb" onclick="send()">➤</button>
+      </div>
+    </div>
+
+    <script>
+      let history = [];
+      let busy = false;
+
+      function ar(el) {
+        el.style.height = "48px";
+        el.style.height = Math.min(el.scrollHeight, 120) + "px";
+      }
+      function hk(e) {
+        if (e.key === "Enter" && !e.shiftKey) {
+          e.preventDefault();
+          send();
+        }
+      }
+      function qs(t) {
+        document.getElementById("inp").value = t;
+        send();
+      }
+
+      function addMsg(role, text, booking) {
+        const msgs = document.getElementById("msgs");
+        const div = document.createElement("div");
+        div.className = "msg " + role;
+        const b = document.createElement("div");
+        b.className = "bubble";
+        b.textContent = text;
+        div.appendChild(b);
+        if (booking) div.appendChild(buildCard(booking));
+        const m = document.createElement("div");
+        m.className = "msg-meta";
+        m.textContent = role === "user" ? "თქვენ" : "🤖 ბუქინგ აგენტი";
+        div.appendChild(m);
+        msgs.appendChild(div);
+        msgs.scrollTop = msgs.scrollHeight;
+      }
+
+      function buildCard(b) {
+        const card = document.createElement("div");
+        card.className = "booking-card";
+        card.innerHTML = `<h3>✅ ჯავშანი #${b.id} შენახულია MariaDB-ში</h3>
+    <div class="bf"><span class="l">სახელი</span><span class="v">${b.name || "—"}</span></div>
+    <div class="bf"><span class="l">ტური</span><span class="v">${b.tour || "—"}</span></div>
+    <div class="bf"><span class="l">თარიღი</span><span class="v">${b.date || "—"}</span></div>
+    <div class="bf"><span class="l">მონაწილეები</span><span class="v">${b.people || "—"} კაცი</span></div>
+    <div class="bf"><span class="l">კონტაქტი</span><span class="v">${b.phone || "—"}</span></div>
+    ${b.total_price ? `<div class="bf"><span class="l">სულ</span><span class="v" style="color:var(--accent)">₾${b.total_price}</span></div>` : ""}`;
+        return card;
+      }
+
+      function showTyping() {
+        const msgs = document.getElementById("msgs");
+        const d = document.createElement("div");
+        d.className = "msg assistant";
+        d.id = "typ";
+        d.innerHTML =
+          '<div class="typing"><span></span><span></span><span></span></div>';
+        msgs.appendChild(d);
+        msgs.scrollTop = msgs.scrollHeight;
+      }
+      function hideTyping() {
+        const e = document.getElementById("typ");
+        if (e) e.remove();
+      }
+
+      async function send() {
+        if (busy) return;
+        const inp = document.getElementById("inp");
+        const text = inp.value.trim();
+        if (!text) return;
+        inp.value = "";
+        inp.style.height = "48px";
+        document.getElementById("qr").style.display = "none";
+        addMsg("user", text);
+        history.push({ role: "user", content: text });
+        busy = true;
+        document.getElementById("sb").disabled = true;
+        showTyping();
+        try {
+          const res = await fetch("/api/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ messages: history }),
+          });
+          const data = await res.json();
+          history.push({ role: "assistant", content: data.text });
+          hideTyping();
+          addMsg("assistant", data.text, data.booking);
+        } catch (e) {
+          hideTyping();
+          addMsg(
+            "assistant",
+            "❌ სერვერთან კავშირი ვერ დამყარდა. დარწმუნდი რომ node index.js გაშვებულია.",
+          );
+        }
+        busy = false;
+        document.getElementById("sb").disabled = false;
+      }
+
+      window.onload = () =>
+        addMsg(
+          "assistant",
+          "გამარჯობა! 👋 მე ვარ თქვენი ტური ბუქინგ აგენტი.\n\nგვაქვს ტურები: სვანეთი 🏔️ • კახეთი 🍇 • ადჯარა 🌊 • თბილისი 🏙️ • ყაზბეგი ❄️\n\nრომელი ტური გაინტერესებთ?",
+        );
+    </script>
+  </body>
+</html>
